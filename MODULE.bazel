@@ -4,3 +4,8 @@
 #
 # For more details, please check https://github.com/bazelbuild/bazel/issues/18958
 ###############################################################################
+
+bazel_dep(name = "spdlog", version = "1.15.2")
+bazel_dep(name = "boost.system", version = "1.89.0")
+bazel_dep(name = "protobuf", version = "32.0", repo_name = "com_google_protobuf")
+bazel_dep(name = "rules_cc", version = "0.0.9")

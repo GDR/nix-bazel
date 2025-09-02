@@ -1,6 +1,10 @@
-#include <iostream>
+#include <spdlog/spdlog.h>
+#include "test/proto/test.pb.h"
 
 int main() {
-  std::cout << "Hello, World!" << std::endl;
+  test::Test test;
+  test.set_name("Damir!");
+  spdlog::info("Hello, World! {}", test.name());
+  
   return 0;
 }

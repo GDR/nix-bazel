@@ -38,6 +38,7 @@
               git 
 
               llvmPackages_20.clang-tools
+              python312
             ];
           };
       });

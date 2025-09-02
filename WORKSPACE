@@ -13,7 +13,7 @@ load("@io_tweag_rules_nixpkgs//nixpkgs:repositories.bzl", "rules_nixpkgs_depende
 
 rules_nixpkgs_dependencies()
 
-load("@io_tweag_rules_nixpkgs//nixpkgs:nixpkgs.bzl", "nixpkgs_local_repository", "nixpkgs_cc_configure")
+load("@io_tweag_rules_nixpkgs//nixpkgs:nixpkgs.bzl", "nixpkgs_local_repository", "nixpkgs_cc_configure", "nixpkgs_python_configure")
 nixpkgs_local_repository(
     name = "nixpkgs",
     nix_file = "//:nixpkgs.nix",
@@ -24,6 +24,11 @@ nixpkgs_cc_configure(
   repository = "@nixpkgs",
   name = "nixpkgs_config_cc",
   nix_file_content = "(import <nixpkgs> {}).llvmPackages_20.clang"
+)
+
+nixpkgs_python_configure(
+  repository = "@nixpkgs",
+  name = "nixpkgs_config_python",
 )
 
 # Hedron's Compile Commands Extractor for Bazel
@@ -45,3 +50,4 @@ load("@hedron_compile_commands//:workspace_setup_transitive_transitive.bzl", "he
 hedron_compile_commands_setup_transitive_transitive()
 load("@hedron_compile_commands//:workspace_setup_transitive_transitive_transitive.bzl", "hedron_compile_commands_setup_transitive_transitive_transitive")
 hedron_compile_commands_setup_transitive_transitive_transitive()
+

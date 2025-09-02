@@ -6,5 +6,6 @@ cc_binary(
     deps = [
         "@spdlog//:spdlog",
         "//test/proto:test_cc_proto",
+        "//test/lib:lib",
     ],
 )

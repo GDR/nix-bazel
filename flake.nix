@@ -39,6 +39,7 @@
 
               llvmPackages_20.clang-tools
               python312
+              coreutils-full
             ];
           };
       });

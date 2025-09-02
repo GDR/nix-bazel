@@ -23,8 +23,45 @@ nixpkgs_local_repository(
 nixpkgs_cc_configure(
   repository = "@nixpkgs",
   name = "nixpkgs_config_cc",
-  nix_file_content = "(import <nixpkgs> {}).llvmPackages_20.clang"
+  nix_file_content = """
+    with import <nixpkgs> { config = {}; overlays = []; };
+    let
+      clang = llvmPackages_20.clang;
+    in
+    buildEnv {
+      name = "bazel-" + clang.name + "-wrapper";
+      paths = [
+        clang
+        clang.bintools
+      ] ++ lib.optional stdenv.isDarwin darwin.sigtool;
+      pathsToLink = [ "/bin" ];
+      passthru = {
+        inherit (clang) isClang targetPrefix;
+        orignalName = clang.name;
+      };
+      postBuild = lib.optionalString stdenv.isDarwin ''
+        for tool in libtool objdump; do
+           if [[ ! -e $$out/bin/$$tool ]]; then
+             ln -s -t $$out/bin $${darwin.cctools}/bin/$$tool
+           fi
+        done
+      '';
+    }
+  """
 )
+
+# http_archive(
+#     name = "rules_cc",
+#     sha256 = "4dccbfd22c0def164c8f47458bd50e0c7148f3d92002cdb459c2a96a68498241",
+#     urls = [
+#         "https://github.com/bazelbuild/rules_cc/releases/download/0.0.1/rules_cc-0.0.1.tar.gz",
+#     ],
+# )
+
+# load("@rules_cc//cc:repositories.bzl", "rules_cc_dependencies", "rules_cc_toolchains")
+
+# rules_cc_dependencies()
+# rules_cc_toolchains()
 
 nixpkgs_python_configure(
   repository = "@nixpkgs",

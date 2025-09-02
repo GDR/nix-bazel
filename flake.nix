@@ -30,7 +30,15 @@
 
             # ... which makes available the following dependencies, 
             # all sourced from the `pkgs` package set:
-            packages = with pkgs; [ bazel_7 bazel-buildtools cacert nix git ];
+            packages = with pkgs; [ 
+              bazel_7 
+              bazel-buildtools 
+              cacert 
+              nix 
+              git 
+
+              llvmPackages_20.clang-tools
+            ];
           };
       });
 }

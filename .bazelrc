@@ -6,5 +6,7 @@ build --macos_minimum_os=11.3
 build --copt=-mmacosx-version-min=11.3
 build --linkopt=-mmacosx-version-min=11.3
 
+# C++ standard settings for all targets (including host builds)
 build --cxxopt=-std=c++23
+build --host_cxxopt=-std=c++23
 build --cxxopt=-DSPDLOG_USE_STD_FORMAT
